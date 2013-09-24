@@ -1,17 +1,18 @@
 /* mbed Microcontroller Library
  * Copyright (c) 2006-2011 ARM Limited. All rights reserved.
- */ 
- 
+ */
+
 #ifndef MBED_H
 #define MBED_H
 
 #define MBED_LIBRARY_VERSION 29
- 
+
 // Useful C libraries
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+//#include <math.h>
+#include <cmath>
 #include <time.h>
 
 // mbed Debug libraries
@@ -52,8 +53,8 @@
 #include "wait_api.h"
 #include "rtc_time.h"
 
-using namespace mbed; 
-using namespace std; 
+using namespace mbed;
+using namespace std;
 
-#endif 
+#endif
 
