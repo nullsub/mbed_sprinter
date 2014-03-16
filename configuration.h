@@ -14,7 +14,7 @@
 
 //// Calibration variables
 // X, Y, Z, E steps per unit - Metric Prusa Mendel with Wade extruder:
-float axis_steps_per_unit[] = {35.556, 35.556, 1280.00, 368.421}; //476.8 
+float axis_steps_per_unit[] = {35.556, 35.556, 800.00, 368.421}; //476.8 
 // Metric Prusa Mendel with Makergear geared stepper extruder:
 //float axis_steps_per_unit[] = {80,80,3200/1.25,1380}; 
 // MakerGear Hybrid Prusa Mendel:
@@ -59,14 +59,14 @@ const bool INVERT_E_DIR = false;
 
 const bool min_software_endstops = true; //If true, axis won't move to coordinates less than zero.
 const bool max_software_endstops = true;  //If true, axis won't move to coordinates greater than the defined lengths below.
-const int X_MAX_LENGTH = 175;
+const int X_MAX_LENGTH = 145;
 const int Y_MAX_LENGTH = 100;
-const int Z_MAX_LENGTH = 110; //not full height because of too much tension in the bearings..//190;
+const int Z_MAX_LENGTH = 110;
 
 //// MOVEMENT SETTINGS
 const int NUM_AXIS = 4; // The axis order in all axis related arrays is X, Y, Z, E
-float max_feedrate[] ={2500, 3000, 60, 200}; //{200000, 200000, 240, 500000}; //X=200, Y=230, Z=230
-float homing_feedrate[] = {500,500,60};
+float max_feedrate[] ={65*60, 65*60, 1.7*60, 20*60}; //{200000, 200000, 240, 500000}; //X=200, Y=230, Z=230
+float homing_feedrate[] = {500, 500, 60};
 bool axis_relative_modes[] = {false, false, false, false};
 
 // Min step delay in microseconds. If you are experiencing missing steps, try to raise the delay microseconds, but be aware this
@@ -83,9 +83,9 @@ bool axis_relative_modes[] = {false, false, false, false};
 //// Acceleration settings
 #ifdef RAMP_ACCELERATION
 // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
-float max_start_speed_units_per_second[] = {25.0,25.0,0.2,10.0};
-long max_acceleration_units_per_sq_second[] = {500,500,50,10000}; // X, Y, Z and E max acceleration in mm/s^2 for printing moves or retracts
-long max_travel_acceleration_units_per_sq_second[] = {500,500,50,500}; // X, Y, Z max acceleration in mm/s^2 for travel moves
+float max_start_speed_units_per_second[] = {20.0,20.0,0.2,10.0};
+long max_acceleration_units_per_sq_second[] = {300, 300, 50,10000}; // X, Y, Z and E max acceleration in mm/s^2 for printing moves or retracts
+long max_travel_acceleration_units_per_sq_second[] = {300, 300, 50, 500}; // X, Y, Z max acceleration in mm/s^2 for travel moves
 #endif
 
 // Machine UUID
@@ -111,7 +111,7 @@ char uuid[] = "00000000-0000-0000-0000-000000000001";
 #define HEATER_CURRENT 255
 
 // How often should the heater check for new temp readings, in milliseconds
-#define HEATER_CHECK_INTERVAL 15 // down to 10 should be possible??? // 500
+#define HEATER_CHECK_INTERVAL 16 // down to 10 should be possible??? // 500
 #define BED_CHECK_INTERVAL 5000
 // Comment the following line to enable heat management during acceleration
 #define DISABLE_CHECK_DURING_ACC
@@ -138,7 +138,7 @@ char uuid[] = "00000000-0000-0000-0000-000000000001";
 //#define TEMP_HYSTERESIS 5       // (C&#65533;) range of +/- temperatures considered "close" to the target one
 
 //// The minimal temperature defines the temperature below which the heater will not be enabled
-#define MINTEMP 5
+#define MINTEMP 10
 
 //// Experimental max temp
 // When temperature exceeds max temp, your heater will be switched off.
@@ -168,6 +168,6 @@ char uuid[] = "00000000-0000-0000-0000-000000000001";
   #define DEBUG_DISABLE_CHECK_DURING_TRAVEL //Debug the namesake feature, see above in this file
 #endif
 
-#define BAUDRATE 115200
+#define BAUDRATE 230400 //115200
 
 #endif

@@ -1,6 +1,7 @@
-
 #include "mbed.h"
 #include "SerialBuffered.h"
+
+extern int print_string(char *);
 
 SerialBuffered::SerialBuffered( size_t bufferSize, PinName tx, PinName rx ) : Serial(  tx,  rx ) {
     m_buffSize = 0;
@@ -13,7 +14,7 @@ SerialBuffered::SerialBuffered( size_t bufferSize, PinName tx, PinName rx ) : Se
 
     m_buff = (uint8_t *) malloc( bufferSize );
     if ( m_buff == NULL ) {
-        //loggerSerial.printf("SerialBuffered - failed to alloc buffer size %d\r\n", (int) bufferSize );
+        print_string("SerialBuffered - failed to alloc buffer size \r\n");
     } else {
         m_buffSize = bufferSize;
     }
@@ -43,21 +44,18 @@ size_t SerialBuffered::readBytes( uint8_t *bytes, size_t requested ) {
 }
 
 int SerialBuffered::getc() {
-    m_timer.reset();
-    m_timer.start();
+	int waiting = 0;
     while ( m_contentStart == m_contentEnd ) {
-
-
+	waiting ++;
         wait_ms( 1 );
-        if ( m_timeout > 0 &&  m_timer.read() > m_timeout )
-            return EOF;
+        if (waiting > 900) { 
+		waiting = 0;
+		print_string("wait\n");
+	}
     }
-
-    m_timer.stop();
 
     uint8_t result = m_buff[m_contentStart++];
     m_contentStart =  m_contentStart % m_buffSize;
-
 
     return result;
 }
