@@ -242,7 +242,7 @@ int main() {
 }
 
 inline void get_command() {
-    while ( pc.readable() != 0 && buflen < BUFSIZE) {
+    while (buflen < BUFSIZE) {
         serial_char = pc.getc();
         if (serial_char == '\n' || serial_char == '\r' || serial_char == ':' || serial_count >= (MAX_CMD_SIZE - 1) ) {
             if (!serial_count) { //if empty line
